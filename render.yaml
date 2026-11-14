@@ -1,0 +1,27 @@
+# Render "Blueprint" — free Web Service, no credit card required.
+# Deploy: push this repo to GitHub, then on Render choose
+# "New +" -> "Blueprint" and point it at the repo; Render reads this file.
+services:
+  - type: web
+    name: sar-django-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health/
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "false"
+      - key: DJANGO_ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: ASF_USERNAME
+        sync: false
+      - key: ASF_PASSWORD
+        sync: false
+      - key: MAX_GEOTIFF_BYTES
+        value: "104857600"
+      - key: GEOAI_API_BASE_URL
+        sync: false
+      - key: GEOAI_API_TIMEOUT
+        value: "120"
